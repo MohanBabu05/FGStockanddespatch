@@ -1,0 +1,140 @@
+{
+  "project_name": "FG Stock & Dispatch Optimizer – Kalsofte Intelligence",
+  "identity": {
+    "role": "E1 (The Anti-AI Designer)",
+    "tone": "Swiss & High-Contrast (Archetype 4) with Deep Blue Accents",
+    "goal": "Visualize Finished Goods stock, dispatch performance, and AI insights with density and clarity."
+  },
+  "design_system": {
+    "colors": {
+      "primary": {
+        "deep_blue": "#0F172A",
+        "deep_blue_light": "#1E293B",
+        "deep_blue_accent": "#334155"
+      },
+      "background": {
+        "page": "#F8FAFC",
+        "card": "#FFFFFF",
+        "panel": "#F1F5F9"
+      },
+      "indicators": {
+        "healthy": "#10B981",
+        "warning": "#F59E0B",
+        "critical": "#EF4444",
+        "neutral": "#94A3B8"
+      },
+      "text": {
+        "primary": "#1E293B",
+        "secondary": "#64748B",
+        "tertiary": "#94A3B8"
+      },
+      "chart_palette": [
+        "#0F172A",
+        "#10B981",
+        "#F59E0B",
+        "#EF4444",
+        "#6366F1"
+      ]
+    },
+    "typography": {
+      "headings": {
+        "font_family": "Manrope, sans-serif",
+        "weights": [600, 700, 800],
+        "sizes": {
+          "h1": "text-3xl font-bold tracking-tight",
+          "h2": "text-2xl font-semibold tracking-tight",
+          "h3": "text-xl font-medium tracking-tight"
+        }
+      },
+      "body": {
+        "font_family": "DM Sans, sans-serif",
+        "weights": [400, 500],
+        "sizes": {
+          "base": "text-sm",
+          "small": "text-xs",
+          "label": "text-[10px] uppercase tracking-wider font-bold text-gray-500"
+        }
+      },
+      "data": {
+        "font_family": "JetBrains Mono, monospace",
+        "usage": "Use for numerical data in grids and KPI values."
+      }
+    },
+    "spacing": {
+      "grid_gap": "gap-6",
+      "card_padding": "p-6",
+      "internal_padding": "p-4",
+      "section_margin": "mb-8"
+    },
+    "shadows": {
+      "card": "shadow-[0_1px_3px_0_rgb(0,0,0,0.1),0_1px_2px_-1px_rgb(0,0,0,0.1)]",
+      "hover": "shadow-[0_4px_6px_-1px_rgb(0,0,0,0.1),0_2px_4px_-2px_rgb(0,0,0,0.1)]",
+      "ai_panel": "shadow-[-4px_0_24px_-4px_rgba(99,102,241,0.15)]"
+    }
+  },
+  "layout": {
+    "structure": "Bento Grid Mode B (High Density)",
+    "grid_system": "grid grid-cols-12 gap-6 p-6 h-screen overflow-hidden bg-slate-50",
+    "areas": {
+      "header": "col-span-12 h-16 flex items-center justify-between bg-white border-b border-slate-200 px-6",
+      "kpi_strip": "col-span-12 grid grid-cols-5 gap-4",
+      "main_content": "col-span-9 grid grid-cols-2 gap-6 overflow-y-auto h-[calc(100vh-8rem)] pr-2",
+      "ai_sidebar": "col-span-3 h-full bg-white border-l border-slate-200 p-4 flex flex-col gap-4 overflow-y-auto"
+    }
+  },
+  "components": {
+    "app_dashboard": {
+      "path": "src/app/dashboard/dashboard.component.ts",
+      "description": "Main layout container holding header, KPIs, charts, and data grids."
+    },
+    "app_kpi_card": {
+      "path": "src/app/components/kpi-card/kpi-card.component.ts",
+      "style": "bg-white rounded-lg border border-slate-200 p-4 flex flex-col justify-between hover:border-slate-300 transition-colors",
+      "content": "Label (top left), Value (center big), Trend (bottom right with icon)."
+    },
+    "app_charts_section": {
+      "path": "src/app/components/charts-section/charts-section.component.ts",
+      "description": "Container for Chart.js canvases. Use ng2-charts.",
+      "styles": "bg-white rounded-lg border border-slate-200 p-4 h-[350px] relative"
+    },
+    "app_data_grid": {
+      "path": "src/app/components/data-grid/data-grid.component.ts",
+      "style": "w-full text-left text-sm text-slate-600 border-collapse",
+      "header_style": "bg-slate-50 text-slate-900 font-semibold py-3 px-4 border-b border-slate-200",
+      "row_style": "border-b border-slate-100 hover:bg-slate-50 transition-colors"
+    },
+    "app_ai_panel": {
+      "path": "src/app/components/ai-panel/ai-panel.component.ts",
+      "style": "bg-gradient-to-b from-white to-slate-50 h-full rounded-none border-l-0",
+      "features": "Contains 'Insight Cards' with sparkle icon. Use a subtle purple/indigo accent border-l-2 for AI items."
+    }
+  },
+  "assets": {
+    "image_urls": {
+      "warehouse_context": "https://images.unsplash.com/photo-1660980041852-230420b8f99f?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "fabric_rolls": "https://images.unsplash.com/photo-1636986056375-184676d8ca14?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "dispatch_truck": "https://images.unsplash.com/photo-1739863305972-4eea3851e521?crop=entropy&cs=srgb&fm=jpg&q=85"
+    },
+    "icons": {
+      "library": "lucide-angular or heroicons (outline)",
+      "usage": "Use stroke-width 1.5px for a clean, technical look."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the 'Angular frontend (not React)' constraint.",
+    "Use SCSS for component-specific styles but leverage Tailwind utility classes for layout and spacing where possible.",
+    "Use 'ng2-charts' wrapper for Chart.js integration.",
+    "Ensure the dashboard is responsive (stack columns on tablet < 1024px).",
+    "Use the specified 'Deep Blue' (#0F172A) as the primary brand color. Do not use gradients for the main background.",
+    "Implement the 'AI Insights' panel as a distinct section with a slightly different visual treatment (e.g., subtle indigo accent) to separate it from raw ERP data.",
+    "Ensure high density in data grids. Use 'py-2 px-4' for table cells.",
+    "Add a 'Last Updated' timestamp in the header to reinforce real-time data relevance."
+  ],
+  "universal_guidelines": [
+    "Don't make generic centered layouts.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects only for overlays (like modals or dropdowns), not for main cards.",
+    "Every interaction needs micro-animations (hover states on rows, buttons).",
+    "Use 2-3x more spacing than feels comfortable for the overall container, but keep data grids dense."
+  ]
+}
