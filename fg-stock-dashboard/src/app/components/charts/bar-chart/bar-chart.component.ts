@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartType } from 'chart.js';
-import { ChartData } from '../../services/dashboard-data.service';
+import { ChartData } from '../../../services/dashboard-data.service';
 
 interface DatasetInput {
   label: string;
