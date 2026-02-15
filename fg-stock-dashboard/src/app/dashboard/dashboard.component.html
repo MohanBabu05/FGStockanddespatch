@@ -1,0 +1,73 @@
+<div class="dashboard" data-testid="main-dashboard">
+  <!-- Header -->
+  <app-header (dateFilterApplied)="onDateFilterApplied($event)"></app-header>
+
+  <!-- Main Layout -->
+  <div class="dashboard__layout">
+    <!-- Main Content Area -->
+    <main class="dashboard__main">
+      <!-- KPI Strip -->
+      <section class="dashboard__kpi-strip" data-testid="kpi-strip">
+        <app-kpi-card 
+          *ngFor="let kpi of kpiData" 
+          [kpi]="kpi"
+        ></app-kpi-card>
+      </section>
+
+      <!-- Charts Row -->
+      <section class="dashboard__charts" data-testid="charts-section">
+        <div class="chart-wrapper chart-wrapper--line">
+          <app-line-chart 
+            *ngIf="stockDispatchTrendData"
+            [chartData]="stockDispatchTrendData" 
+            title="Stock vs Dispatch Trend"
+          ></app-line-chart>
+        </div>
+        <div class="chart-wrapper chart-wrapper--bar">
+          <app-bar-chart 
+            *ngIf="stockAgeingChartData"
+            [chartData]="stockAgeingChartData" 
+            title="Stock Ageing Distribution"
+          ></app-bar-chart>
+        </div>
+      </section>
+
+      <!-- Data Grids -->
+      <section class="dashboard__grids" data-testid="data-grids-section">
+        <div class="grid-wrapper grid-wrapper--half">
+          <app-data-grid
+            title="Pending Orders"
+            type="pending-orders"
+            [pendingOrders]="pendingOrders"
+          ></app-data-grid>
+        </div>
+        <div class="grid-wrapper grid-wrapper--half">
+          <app-data-grid
+            title="FG Stock Ageing"
+            type="stock-ageing"
+            [stockAgeing]="stockAgeing"
+          ></app-data-grid>
+        </div>
+        <div class="grid-wrapper grid-wrapper--half">
+          <app-data-grid
+            title="Non-Moving Items"
+            type="non-moving"
+            [nonMovingItems]="nonMovingItems"
+          ></app-data-grid>
+        </div>
+        <div class="grid-wrapper grid-wrapper--half">
+          <app-data-grid
+            title="Fast-Moving Items"
+            type="fast-moving"
+            [fastMovingItems]="fastMovingItems"
+          ></app-data-grid>
+        </div>
+      </section>
+    </main>
+
+    <!-- AI Sidebar -->
+    <aside class="dashboard__sidebar">
+      <app-ai-panel [insights]="aiInsights"></app-ai-panel>
+    </aside>
+  </div>
+</div>

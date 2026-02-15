@@ -1,11 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  standalone: true,
+  imports: [DashboardComponent],
+  template: `<app-dashboard></app-dashboard>`,
+  styles: []
 })
-export class App {
-  protected readonly title = signal('fg-stock-dashboard');
+export class AppComponent {
+  title = 'FG Stock & Dispatch Optimizer';
 }
