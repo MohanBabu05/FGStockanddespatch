@@ -1,0 +1,35 @@
+<aside class="ai-panel" data-testid="ai-insights-panel">
+  <div class="ai-panel__header">
+    <div class="ai-panel__title-wrapper">
+      <lucide-icon [img]="SparklesIcon" [size]="20" class="sparkle-icon"></lucide-icon>
+      <h2 class="ai-panel__title">AI Insights</h2>
+    </div>
+    <span class="ai-panel__badge">Live</span>
+  </div>
+
+  <div class="ai-panel__body">
+    <div 
+      *ngFor="let insight of insights" 
+      class="insight-card" 
+      [ngClass]="getInsightClass(insight.type)"
+      [attr.data-testid]="'insight-' + insight.id"
+    >
+      <div class="insight-card__icon">
+        <lucide-icon [img]="getIconComponent(insight.icon)" [size]="18"></lucide-icon>
+      </div>
+      <div class="insight-card__content">
+        <p class="insight-card__message">
+          <span *ngIf="insight.value" class="insight-card__value">{{ insight.value }}</span>
+          {{ insight.message }}
+        </p>
+        <span class="insight-card__timestamp">{{ insight.timestamp }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-panel__footer">
+    <button class="view-all-btn" data-testid="view-all-insights-btn">
+      View All Insights
+    </button>
+  </div>
+</aside>

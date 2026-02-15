@@ -1,0 +1,118 @@
+<div class="data-grid" [attr.data-testid]="'data-grid-' + type">
+  <div class="data-grid__header">
+    <h3 class="data-grid__title">{{ title }}</h3>
+  </div>
+
+  <div class="data-grid__body">
+    <!-- Pending Orders Table -->
+    <table *ngIf="type === 'pending-orders'" class="data-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Shade</th>
+          <th>Qty (Kg)</th>
+          <th>Due Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of pendingOrders" [class]="getStatusClass(order.status)">
+          <td class="mono">{{ order.orderId }}</td>
+          <td>{{ order.customer }}</td>
+          <td>{{ order.shade }}</td>
+          <td class="mono text-right">{{ order.quantity | number }}</td>
+          <td class="mono">{{ order.dueDate }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+              {{ order.status }}
+              <span *ngIf="order.daysRemaining !== 0" class="days">
+                ({{ order.daysRemaining > 0 ? order.daysRemaining + 'd' : order.daysRemaining + 'd' }})
+              </span>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Stock Ageing Table -->
+    <table *ngIf="type === 'stock-ageing'" class="data-table">
+      <thead>
+        <tr>
+          <th>Item Code</th>
+          <th>Shade</th>
+          <th>Qty (Kg)</th>
+          <th>Age (Days)</th>
+          <th>Value</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of stockAgeing">
+          <td class="mono">{{ item.itemCode }}</td>
+          <td>{{ item.shade }}</td>
+          <td class="mono text-right">{{ item.quantity | number }}</td>
+          <td class="mono text-center">{{ item.ageInDays }}</td>
+          <td class="mono text-right">{{ formatCurrency(item.value) }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(item.status)">
+              {{ item.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Non-Moving Items Table -->
+    <table *ngIf="type === 'non-moving'" class="data-table">
+      <thead>
+        <tr>
+          <th>Item Code</th>
+          <th>Shade</th>
+          <th>Qty (Kg)</th>
+          <th>Last Movement</th>
+          <th>Stagnant Days</th>
+          <th>Blocked Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of nonMovingItems">
+          <td class="mono">{{ item.itemCode }}</td>
+          <td>{{ item.shade }}</td>
+          <td class="mono text-right">{{ item.quantity | number }}</td>
+          <td class="mono">{{ item.lastMovement }}</td>
+          <td class="mono text-center text-critical">{{ item.daysStagnant }}</td>
+          <td class="mono text-right text-critical">{{ formatCurrency(item.blockedValue) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Fast Moving Items Table -->
+    <table *ngIf="type === 'fast-moving'" class="data-table">
+      <thead>
+        <tr>
+          <th>Item Code</th>
+          <th>Shade</th>
+          <th>Avg Dispatch</th>
+          <th>Current Stock</th>
+          <th>Reorder Level</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of fastMovingItems">
+          <td class="mono">{{ item.itemCode }}</td>
+          <td>{{ item.shade }}</td>
+          <td class="mono text-right">{{ item.avgDispatch | number }}</td>
+          <td class="mono text-right">{{ item.currentStock | number }}</td>
+          <td class="mono text-right">{{ item.reorderLevel | number }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(item.status)">
+              {{ item.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
