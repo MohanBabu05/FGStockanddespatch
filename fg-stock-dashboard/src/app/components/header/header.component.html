@@ -1,0 +1,74 @@
+<header class="header" data-testid="dashboard-header">
+  <div class="header__left">
+    <div class="header__logo" data-testid="header-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#0F172A"/>
+          <path d="M8 10h16M8 16h12M8 22h8" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-brand">Kalsofte</span>
+        <span class="logo-product">Intelligence</span>
+      </div>
+    </div>
+    <div class="header__title">
+      <h1 data-testid="header-title">Finished Goods (FG) Stock & Dispatch Optimizer</h1>
+      <span class="header__timestamp" data-testid="last-updated">Last updated: {{ lastUpdated }}</span>
+    </div>
+  </div>
+
+  <div class="header__right">
+    <div class="header__filters" data-testid="date-filters">
+      <div class="filter-group">
+        <label for="fromDate">From</label>
+        <div class="date-input-wrapper">
+          <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
+          <input 
+            type="date" 
+            id="fromDate" 
+            [(ngModel)]="fromDate"
+            data-testid="from-date-input"
+          />
+        </div>
+      </div>
+      <div class="filter-group">
+        <label for="toDate">To</label>
+        <div class="date-input-wrapper">
+          <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
+          <input 
+            type="date" 
+            id="toDate" 
+            [(ngModel)]="toDate"
+            data-testid="to-date-input"
+          />
+        </div>
+      </div>
+      <button 
+        class="btn btn--primary" 
+        (click)="applyFilter()"
+        data-testid="apply-filter-btn"
+      >
+        Apply
+      </button>
+    </div>
+
+    <div class="header__actions">
+      <button 
+        class="action-btn" 
+        (click)="refreshData()"
+        title="Refresh Data"
+        data-testid="refresh-btn"
+      >
+        <lucide-icon [img]="RefreshIcon" [size]="20"></lucide-icon>
+      </button>
+      <button class="action-btn" title="Notifications" data-testid="notifications-btn">
+        <lucide-icon [img]="BellIcon" [size]="20"></lucide-icon>
+        <span class="notification-badge">3</span>
+      </button>
+      <button class="action-btn" title="Settings" data-testid="settings-btn">
+        <lucide-icon [img]="SettingsIcon" [size]="20"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</header>

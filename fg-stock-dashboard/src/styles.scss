@@ -1,1 +1,112 @@
-/* You can add global styles to this file, and also import other style files */
+// Global Variables
+:root {
+  // Primary Colors
+  --primary-deep-blue: #0F172A;
+  --primary-deep-blue-light: #1E293B;
+  --primary-deep-blue-accent: #334155;
+  
+  // Background Colors
+  --bg-page: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-panel: #F1F5F9;
+  
+  // Indicator Colors
+  --indicator-healthy: #10B981;
+  --indicator-warning: #F59E0B;
+  --indicator-critical: #EF4444;
+  --indicator-neutral: #94A3B8;
+  
+  // Text Colors
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --text-tertiary: #94A3B8;
+  
+  // Accent Colors
+  --accent-indigo: #6366F1;
+  --accent-indigo-light: #EEF2FF;
+  
+  // Shadows
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-hover: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-ai: -4px 0 24px -4px rgba(99, 102, 241, 0.15);
+  
+  // Fonts
+  --font-heading: 'Manrope', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+// CSS Reset & Base
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+// Utility Classes
+.text-healthy { color: var(--indicator-healthy); }
+.text-warning { color: var(--indicator-warning); }
+.text-critical { color: var(--indicator-critical); }
+.text-neutral { color: var(--indicator-neutral); }
+
+.bg-healthy { background-color: var(--indicator-healthy); }
+.bg-warning { background-color: var(--indicator-warning); }
+.bg-critical { background-color: var(--indicator-critical); }
+
+// Scrollbar Styling
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-tertiary);
+  border-radius: 3px;
+  
+  &:hover {
+    background: var(--text-secondary);
+  }
+}
+
+// Transitions
+.transition-base {
+  transition: all 0.2s ease-in-out;
+}
+
+// Card Base
+.card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  box-shadow: var(--shadow-card);
+  
+  &:hover {
+    box-shadow: var(--shadow-hover);
+  }
+}

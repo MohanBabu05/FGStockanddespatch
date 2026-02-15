@@ -1,0 +1,21 @@
+<div class="kpi-card" [ngClass]="getStatusClass()" [attr.data-testid]="'kpi-card-' + kpi.id">
+  <div class="kpi-card__header">
+    <span class="kpi-card__label">{{ kpi.label }}</span>
+    <span class="kpi-card__status-dot" [ngClass]="getStatusClass()"></span>
+  </div>
+  
+  <div class="kpi-card__body">
+    <div class="kpi-card__value-wrapper">
+      <span class="kpi-card__value">{{ kpi.value }}</span>
+      <span class="kpi-card__unit">{{ kpi.unit }}</span>
+    </div>
+  </div>
+
+  <div class="kpi-card__footer" *ngIf="kpi.trend !== undefined">
+    <div class="kpi-card__trend" [ngClass]="getTrendClass()">
+      <lucide-icon [img]="getTrendIcon()" [size]="14"></lucide-icon>
+      <span>{{ kpi.trend }}%</span>
+    </div>
+    <span class="kpi-card__period">vs last period</span>
+  </div>
+</div>
