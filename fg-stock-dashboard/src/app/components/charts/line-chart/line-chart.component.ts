@@ -104,7 +104,7 @@ export class LineChartComponent implements OnInit {
     if (this.chartData) {
       this.lineChartData = {
         labels: this.chartData.labels,
-        datasets: this.chartData.datasets.map(ds => ({
+        datasets: this.chartData.datasets.map((ds: DatasetInput) => ({
           ...ds,
           pointRadius: 4,
           pointHoverRadius: 6,

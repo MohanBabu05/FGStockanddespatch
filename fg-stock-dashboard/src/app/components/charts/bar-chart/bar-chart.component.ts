@@ -52,7 +52,8 @@ export class BarChartComponent implements OnInit {
         cornerRadius: 8,
         callbacks: {
           label: function(context) {
-            return context.parsed.y.toLocaleString() + ' Kg';
+            const value = context.parsed?.y ?? 0;
+            return value.toLocaleString() + ' Kg';
           }
         }
       }
@@ -93,7 +94,7 @@ export class BarChartComponent implements OnInit {
     if (this.chartData) {
       this.barChartData = {
         labels: this.chartData.labels,
-        datasets: this.chartData.datasets.map(ds => ({
+        datasets: this.chartData.datasets.map((ds: DatasetInput) => ({
           ...ds,
           borderRadius: 6,
           borderSkipped: false,
