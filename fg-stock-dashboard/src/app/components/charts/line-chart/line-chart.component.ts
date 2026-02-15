@@ -4,6 +4,15 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { ChartData } from '../../services/dashboard-data.service';
 
+interface DatasetInput {
+  label: string;
+  data: number[];
+  borderColor?: string;
+  backgroundColor?: string | string[];
+  fill?: boolean;
+  tension?: number;
+}
+
 @Component({
   selector: 'app-line-chart',
   standalone: true,

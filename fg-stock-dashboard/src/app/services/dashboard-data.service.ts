@@ -63,7 +63,7 @@ export interface ChartData {
     label: string;
     data: number[];
     borderColor?: string;
-    backgroundColor?: string;
+    backgroundColor?: string | string[];
     fill?: boolean;
     tension?: number;
   }[];
