@@ -1,21 +1,14 @@
 .ai-panel {
-  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-  border-left: 1px solid #E2E8F0;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-ai);
-  position: sticky;
-  top: 136px; // Header + Filter toolbar height
-  max-height: calc(100vh - 136px);
-  overflow-y: auto;
+  height: 100%;
+  overflow: hidden;
 
   &__section {
-    padding: 16px;
-    border-bottom: 1px solid #E2E8F0;
+    padding: 16px 18px;
 
-    &:last-of-type {
-      border-bottom: none;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #E2E8F0;
     }
   }
 
@@ -24,6 +17,7 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   &__mini-grid {
@@ -31,9 +25,10 @@
   }
 
   &__footer {
-    padding: 16px;
+    padding: 14px 18px;
     border-top: 1px solid #E2E8F0;
     margin-top: auto;
+    flex-shrink: 0;
 
     .view-all-btn {
       width: 100%;
@@ -56,17 +51,18 @@
   }
 }
 
+// Section Headers
 .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .section-title-wrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 
   .sparkle-icon {
     color: var(--accent-indigo);
@@ -75,7 +71,7 @@
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -84,7 +80,7 @@
   gap: 8px;
 
   &--small {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
   }
 }
@@ -102,8 +98,8 @@
 .live-badge {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
+  gap: 5px;
+  padding: 5px 12px;
   background: var(--bg-panel);
   color: var(--text-tertiary);
   font-size: 11px;
@@ -112,7 +108,7 @@
   letter-spacing: 0.3px;
 
   &.active {
-    background: rgba(16, 185, 129, 0.1);
+    background: rgba(16, 185, 129, 0.12);
     color: var(--indicator-healthy);
 
     lucide-icon {
@@ -126,27 +122,27 @@
   font-weight: 600;
   color: var(--text-tertiary);
   background: var(--bg-panel);
-  padding: 2px 8px;
-  border-radius: 10px;
+  padding: 3px 10px;
+  border-radius: 12px;
 }
 
 // Insights List
 .insights-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-  max-height: 280px;
+  padding-right: 4px;
 }
 
 .insight-card {
   display: flex;
-  gap: 10px;
-  padding: 12px;
+  gap: 12px;
+  padding: 14px;
   background: var(--bg-card);
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #E2E8F0;
   border-left: 3px solid var(--accent-indigo);
   transition: all 0.2s ease;
@@ -159,7 +155,7 @@
 
   &--new {
     border-color: var(--accent-indigo);
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, transparent 60%);
     animation: slideIn 0.3s ease;
   }
 
@@ -167,7 +163,7 @@
     border-left-color: var(--indicator-critical);
 
     .insight-card__icon {
-      background: rgba(239, 68, 68, 0.1);
+      background: rgba(239, 68, 68, 0.12);
       color: var(--indicator-critical);
     }
   }
@@ -176,7 +172,7 @@
     border-left-color: var(--indicator-warning);
 
     .insight-card__icon {
-      background: rgba(245, 158, 11, 0.1);
+      background: rgba(245, 158, 11, 0.12);
       color: var(--indicator-warning);
     }
   }
@@ -185,7 +181,7 @@
     border-left-color: var(--indicator-healthy);
 
     .insight-card__icon {
-      background: rgba(16, 185, 129, 0.1);
+      background: rgba(16, 185, 129, 0.12);
       color: var(--indicator-healthy);
     }
   }
@@ -194,33 +190,36 @@
     border-left-color: var(--accent-indigo);
 
     .insight-card__icon {
-      background: rgba(99, 102, 241, 0.1);
+      background: rgba(99, 102, 241, 0.12);
       color: var(--accent-indigo);
     }
   }
 
   &__icon {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--accent-indigo-light);
     color: var(--accent-indigo);
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   &__content {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__message {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-primary);
-    line-height: 1.4;
-    margin: 0 0 4px 0;
+    line-height: 1.45;
+    margin: 0 0 5px 0;
   }
 
   &__value {
@@ -230,19 +229,19 @@
   }
 
   &__timestamp {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text-tertiary);
   }
 
   &__new-badge {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 10px;
+    right: 10px;
     font-size: 9px;
     font-weight: 700;
     color: var(--accent-indigo);
     background: rgba(99, 102, 241, 0.15);
-    padding: 2px 6px;
+    padding: 3px 7px;
     border-radius: 4px;
     animation: badgePulse 1s ease infinite;
   }
@@ -252,17 +251,18 @@
 .mini-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 10px;
 
   &__item {
     background: var(--bg-card);
     border: 1px solid #E2E8F0;
     border-radius: 8px;
-    padding: 10px;
+    padding: 12px;
     transition: all 0.2s ease;
 
     &:hover {
       border-color: var(--primary-deep-blue-accent);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     }
 
     &.status--critical {
@@ -282,11 +282,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 
     .item-code {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-primary);
     }
@@ -294,16 +294,16 @@
     .item-days {
       font-size: 10px;
       font-weight: 600;
-      padding: 2px 6px;
+      padding: 3px 7px;
       border-radius: 4px;
 
       &.status--critical {
-        background: rgba(239, 68, 68, 0.1);
+        background: rgba(239, 68, 68, 0.12);
         color: var(--indicator-critical);
       }
 
       &.status--warning {
-        background: rgba(245, 158, 11, 0.1);
+        background: rgba(245, 158, 11, 0.12);
         color: var(--indicator-warning);
       }
     }
@@ -312,21 +312,21 @@
       font-size: 9px;
       font-weight: 600;
       text-transform: uppercase;
-      padding: 2px 6px;
+      padding: 3px 7px;
       border-radius: 4px;
 
       &.status--healthy {
-        background: rgba(16, 185, 129, 0.1);
+        background: rgba(16, 185, 129, 0.12);
         color: var(--indicator-healthy);
       }
 
       &.status--warning {
-        background: rgba(245, 158, 11, 0.1);
+        background: rgba(245, 158, 11, 0.12);
         color: var(--indicator-warning);
       }
 
       &.status--critical {
-        background: rgba(239, 68, 68, 0.1);
+        background: rgba(239, 68, 68, 0.12);
         color: var(--indicator-critical);
       }
     }
@@ -338,13 +338,13 @@
     justify-content: space-between;
 
     .item-shade {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-secondary);
     }
 
     .item-value, .item-stock {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text-primary);
     }
@@ -373,7 +373,7 @@
   50% { opacity: 0.6; }
 }
 
-// Scrollbar
+// Custom Scrollbar
 .insights-list::-webkit-scrollbar {
   width: 4px;
 }
@@ -385,4 +385,39 @@
 .insights-list::-webkit-scrollbar-thumb {
   background: var(--text-tertiary);
   border-radius: 2px;
+}
+
+// Responsive - Horizontal layout for tablet
+@media (max-width: 1200px) {
+  .ai-panel {
+    flex-direction: row;
+    height: auto;
+    max-height: 420px;
+
+    &__section {
+      padding: 14px 16px;
+      border-bottom: none;
+
+      &:not(:last-of-type) {
+        border-right: 1px solid #E2E8F0;
+      }
+    }
+
+    &__insights {
+      flex: 2;
+      max-height: 380px;
+    }
+
+    &__mini-grid {
+      flex: 1;
+    }
+
+    &__footer {
+      display: none;
+    }
+  }
+
+  .insights-list {
+    max-height: 320px;
+  }
 }
