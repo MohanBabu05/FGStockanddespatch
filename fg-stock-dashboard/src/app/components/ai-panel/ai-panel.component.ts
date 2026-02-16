@@ -81,4 +81,8 @@ export class AiPanelComponent implements OnChanges {
     }
     return '₹' + value.toLocaleString('en-IN');
   }
+
+  trackByInsight(index: number, insight: AiInsight): string {
+    return insight.id;
+  }
 }
