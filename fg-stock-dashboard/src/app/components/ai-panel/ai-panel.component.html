@@ -1,35 +1,99 @@
 <aside class="ai-panel" data-testid="ai-insights-panel">
-  <div class="ai-panel__header">
-    <div class="ai-panel__title-wrapper">
-      <lucide-icon [img]="SparklesIcon" [size]="20" class="sparkle-icon"></lucide-icon>
-      <h2 class="ai-panel__title">AI Insights</h2>
+  <!-- AI Insights Section -->
+  <div class="ai-panel__section ai-panel__insights">
+    <div class="section-header">
+      <div class="section-title-wrapper">
+        <lucide-icon [img]="SparklesIcon" [size]="18" class="sparkle-icon"></lucide-icon>
+        <h2 class="section-title">AI Insights</h2>
+      </div>
+      <span class="live-badge" [ngClass]="{'active': isConnected}" data-testid="live-badge">
+        <lucide-icon [img]="ZapIcon" [size]="12"></lucide-icon>
+        {{ isConnected ? 'Live' : 'Offline' }}
+      </span>
     </div>
-    <span class="ai-panel__badge">Live</span>
+
+    <div class="insights-list" data-testid="insights-list">
+      <div 
+        *ngFor="let insight of insights; trackBy: trackByInsight" 
+        class="insight-card" 
+        [ngClass]="[getInsightClass(insight.type), isNewInsight(insight.id) ? 'insight-card--new' : '']"
+        [attr.data-testid]="'insight-' + insight.id"
+      >
+        <div class="insight-card__icon">
+          <lucide-icon [img]="getIconComponent(insight.icon)" [size]="16"></lucide-icon>
+        </div>
+        <div class="insight-card__content">
+          <p class="insight-card__message">
+            <span *ngIf="insight.value" class="insight-card__value">{{ insight.value }}</span>
+            {{ insight.message }}
+          </p>
+          <span class="insight-card__timestamp">{{ insight.timestamp }}</span>
+        </div>
+        <div class="insight-card__new-badge" *ngIf="isNewInsight(insight.id)">NEW</div>
+      </div>
+    </div>
   </div>
 
-  <div class="ai-panel__body">
-    <div 
-      *ngFor="let insight of insights" 
-      class="insight-card" 
-      [ngClass]="getInsightClass(insight.type)"
-      [attr.data-testid]="'insight-' + insight.id"
-    >
-      <div class="insight-card__icon">
-        <lucide-icon [img]="getIconComponent(insight.icon)" [size]="18"></lucide-icon>
-      </div>
-      <div class="insight-card__content">
-        <p class="insight-card__message">
-          <span *ngIf="insight.value" class="insight-card__value">{{ insight.value }}</span>
-          {{ insight.message }}
-        </p>
-        <span class="insight-card__timestamp">{{ insight.timestamp }}</span>
+  <!-- Non-Moving Items Mini Grid -->
+  <div class="ai-panel__section ai-panel__mini-grid">
+    <div class="section-header">
+      <h3 class="section-title section-title--small">
+        <span class="status-indicator status-indicator--critical"></span>
+        Non-Moving Items
+      </h3>
+      <span class="item-count">{{ nonMovingItems.length }}</span>
+    </div>
+
+    <div class="mini-grid" data-testid="non-moving-mini-grid">
+      <div 
+        *ngFor="let item of nonMovingItems.slice(0, 4)" 
+        class="mini-grid__item"
+        [ngClass]="getStatusClass(item)"
+      >
+        <div class="mini-grid__item-header">
+          <span class="item-code">{{ item.itemCode }}</span>
+          <span class="item-days" [ngClass]="getStatusClass(item)">{{ item.daysStagnant }}d</span>
+        </div>
+        <div class="mini-grid__item-body">
+          <span class="item-shade">{{ item.shade }}</span>
+          <span class="item-value">{{ formatCurrency(item.blockedValue) }}</span>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Fast-Moving Items Mini Grid -->
+  <div class="ai-panel__section ai-panel__mini-grid">
+    <div class="section-header">
+      <h3 class="section-title section-title--small">
+        <span class="status-indicator status-indicator--healthy"></span>
+        Fast-Moving Items
+      </h3>
+      <span class="item-count">{{ fastMovingItems.length }}</span>
+    </div>
+
+    <div class="mini-grid" data-testid="fast-moving-mini-grid">
+      <div 
+        *ngFor="let item of fastMovingItems.slice(0, 4)" 
+        class="mini-grid__item"
+        [ngClass]="getStatusClass(item)"
+      >
+        <div class="mini-grid__item-header">
+          <span class="item-code">{{ item.itemCode }}</span>
+          <span class="item-status" [ngClass]="getStatusClass(item)">{{ item.status }}</span>
+        </div>
+        <div class="mini-grid__item-body">
+          <span class="item-shade">{{ item.shade }}</span>
+          <span class="item-stock">{{ item.currentStock | number }} Kg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View All Button -->
   <div class="ai-panel__footer">
     <button class="view-all-btn" data-testid="view-all-insights-btn">
-      View All Insights
+      View All Analytics
     </button>
   </div>
 </aside>
