@@ -2,7 +2,7 @@
 
 ## Product Requirements Document (PRD)
 
-### Last Updated: Feb 2026
+### Last Updated: Feb 2026 (Layout Refinement)
 
 ---
 
