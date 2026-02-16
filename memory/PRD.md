@@ -2,12 +2,12 @@
 
 ## Product Requirements Document (PRD)
 
-### Last Updated: Jan 2026
+### Last Updated: Feb 2026
 
 ---
 
 ## Original Problem Statement
-Design and generate a modern ERP-style Angular dashboard UI for a textile industry application that visualizes Finished Goods (FG) stock, dispatch performance, pending orders, and AI-generated insights.
+Design and generate a modern ERP-style Angular dashboard UI for a textile industry application that visualizes Finished Goods (FG) stock, dispatch performance, pending orders, and AI-generated insights with real-time WebSocket updates.
 
 ---
 
@@ -17,6 +17,7 @@ Design and generate a modern ERP-style Angular dashboard UI for a textile indust
 - **Data Layer**: JSON data service structure (mock data, ready for backend integration)
 - **Theme**: ERP Professional (Deep Blue, White, Light Grey)
 - **Responsive**: Desktop + Tablet (768px+)
+- **Real-time**: WebSocket-based updates (SignalR compatible architecture)
 
 ---
 
@@ -28,6 +29,7 @@ Design and generate a modern ERP-style Angular dashboard UI for a textile indust
 - **Charts**: Chart.js with ng2-charts wrapper
 - **Icons**: Lucide Angular
 - **Typography**: Manrope (headings), DM Sans (body), JetBrains Mono (data)
+- **Real-time**: WebSocket service (SignalR-ready architecture)
 
 ### Project Structure
 ```
@@ -35,16 +37,17 @@ Design and generate a modern ERP-style Angular dashboard UI for a textile indust
 ├── src/
 │   ├── app/
 │   │   ├── components/
-│   │   │   ├── header/
-│   │   │   ├── kpi-card/
+│   │   │   ├── header/          # Header + Filter toolbar
+│   │   │   ├── kpi-card/        # KPI cards with real-time updates
 │   │   │   ├── charts/
 │   │   │   │   ├── line-chart/
 │   │   │   │   └── bar-chart/
-│   │   │   ├── data-grid/
-│   │   │   └── ai-panel/
-│   │   ├── dashboard/
+│   │   │   ├── data-grid/       # Data tables
+│   │   │   └── ai-panel/        # AI sidebar with mini grids
+│   │   ├── dashboard/           # Main dashboard container
 │   │   ├── services/
-│   │   │   └── dashboard-data.service.ts
+│   │   │   ├── dashboard-data.service.ts
+│   │   │   └── websocket.service.ts  # Real-time updates
 │   │   ├── app.ts
 │   │   └── app.config.ts
 │   ├── styles.scss
@@ -56,14 +59,14 @@ Design and generate a modern ERP-style Angular dashboard UI for a textile indust
 
 ## What's Been Implemented ✅
 
-### Core Features (Jan 2026)
+### Phase 1: Core Dashboard (Jan 2026)
 1. **Header Component**
    - Logo with Kalsofte Intelligence branding
-   - Title: "Finished Goods (FG) Stock & Dispatch Optimizer"
-   - Date range filters (From/To with date pickers)
-   - Apply button with filter functionality
-   - Last updated timestamp
+   - Title: "FG Stock & Dispatch Optimizer"
+   - Date range filters with proper date pickers
+   - Apply/Reset buttons with date validation
    - Action buttons (Refresh, Notifications, Settings)
+   - Live connection status indicator
 
 2. **KPI Summary Strip (6 Cards)**
    - Total FG Stock (Kg)
@@ -72,59 +75,85 @@ Design and generate a modern ERP-style Angular dashboard UI for a textile indust
    - Total Stock Value (₹ Cr)
    - Slow-Moving Value (₹ Lakhs)
    - Non-Moving Value (₹ Lakhs)
-   - Each card shows: value, unit, trend percentage, status indicator
+   - Real-time update animations
 
 3. **Charts Section**
    - Stock vs Dispatch Trend (Line Chart)
    - Stock Ageing Distribution (Bar Chart)
-   - Interactive tooltips, responsive sizing
 
 4. **Data Grids**
-   - Pending Orders (Order ID, Customer, Shade, Qty, Due Date, Status)
-   - FG Stock Ageing (Item Code, Shade, Qty, Age, Value, Status)
-   - Non-Moving Items (Item Code, Shade, Qty, Last Movement, Stagnant Days, Blocked Value)
-   - Fast-Moving Items (Item Code, Shade, Avg Dispatch, Current Stock, Reorder Level, Status)
+   - Pending Orders
+   - FG Stock Ageing
 
-5. **AI Insights Panel**
-   - Real-time insights with Live indicator
-   - Alert/Warning/Recommendation/Info cards
-   - Icons, timestamps, and value highlights
-   - View All Insights button
+### Phase 2: Real-Time & UI Refinement (Feb 2026)
+1. **WebSocket Service (SignalR Compatible)**
+   - Connection status management
+   - KPI real-time updates (every 20s)
+   - AI Insight real-time updates (every 30s)
+   - Smooth transition animations
+   - Non-intrusive update indicators
 
-6. **Design System**
-   - ERP Professional Theme
-   - Status colors: Healthy (Green), Warning (Amber), Critical (Red)
-   - Responsive layout (Desktop + Tablet)
-   - Micro-animations on hover states
-   - Scrollable data grids
+2. **AI Insights Sidebar**
+   - Real-time insights with Live badge
+   - Insight cards with type-based styling (alert/warning/recommendation/info)
+   - Non-Moving Items mini grid (4 items)
+   - Fast-Moving Items mini grid (4 items)
+   - "View All Analytics" button
+
+3. **Date Filter Improvements**
+   - Proper date picker controls (type="date")
+   - Validation: From date ≤ To date
+   - Inline error messages
+   - Reset to default functionality
+
+4. **Update Animations**
+   - Subtle glow effect on KPI updates
+   - Slide-in animation for new insights
+   - "NEW" badge on fresh insights
+   - "was [previous_value]" indicator
 
 ---
 
-## Data Service Interface
-The `DashboardDataService` provides Observable-based methods for:
-- `getKpiData()` - KPI card data
-- `getPendingOrders()` - Pending orders list
-- `getStockAgeing()` - Stock ageing data
-- `getNonMovingItems()` - Non-moving inventory
-- `getFastMovingItems()` - Fast-moving inventory
-- `getAiInsights()` - AI-generated insights
-- `getStockDispatchTrendData()` - Line chart data
-- `getStockAgeingChartData()` - Bar chart data
+## WebSocket Architecture (SignalR Ready)
+
+### Current Implementation (Mock)
+```typescript
+// Simulated updates - replace with SignalR
+interval(20000).subscribe(() => this.simulateKpiUpdate());
+interval(30000).subscribe(() => this.simulateNewInsight());
+```
+
+### SignalR Integration (Future)
+```typescript
+// Replace mock with:
+this.hubConnection = new signalR.HubConnectionBuilder()
+  .withUrl('/hubs/dashboard')
+  .build();
+
+this.hubConnection.on('ReceiveKpiUpdate', (update) => {
+  this.kpiUpdates$.next(update);
+});
+
+this.hubConnection.on('ReceiveInsight', (insight) => {
+  this.handleNewInsight(insight);
+});
+```
 
 ---
 
 ## Prioritized Backlog
 
-### P0 (Critical - Future Backend Integration)
-- [ ] Connect to real backend API
+### P0 (Critical - Backend Integration)
+- [ ] Connect WebSocket to ASP.NET Core SignalR hub
+- [ ] Real backend API for dashboard data
 - [ ] Implement date filter API calls
-- [ ] Real-time data refresh
 
 ### P1 (High Priority)
 - [ ] Export data to Excel/PDF
 - [ ] Drill-down on KPI cards
 - [ ] Order details modal
 - [ ] Stock item detail view
+- [ ] Push notifications for critical alerts
 
 ### P2 (Medium Priority)
 - [ ] Dashboard customization (drag & drop widgets)
@@ -133,15 +162,15 @@ The `DashboardDataService` provides Observable-based methods for:
 - [ ] Multi-language support
 
 ### Future Enhancements
-- [ ] Push notifications for alerts
-- [ ] Advanced AI recommendations engine
 - [ ] Predictive analytics charts
 - [ ] Mobile responsive layout
+- [ ] Advanced AI recommendations engine
+- [ ] Historical trend analysis
 
 ---
 
 ## Next Action Items
-1. Backend API development for real data integration
-2. Add data export functionality
-3. Implement drill-down views for KPIs and insights
-4. Add user authentication
+1. ASP.NET Core SignalR hub development
+2. Backend API integration for real data
+3. Implement alert/notification system
+4. Add data export functionality
