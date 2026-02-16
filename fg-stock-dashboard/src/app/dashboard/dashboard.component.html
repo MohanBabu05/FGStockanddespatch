@@ -1,6 +1,10 @@
 <div class="dashboard" data-testid="main-dashboard">
-  <!-- Header -->
-  <app-header (dateFilterApplied)="onDateFilterApplied($event)"></app-header>
+  <!-- Header & Filter Toolbar -->
+  <app-header 
+    [notificationCount]="notificationCount"
+    (dateFilterApplied)="onDateFilterApplied($event)"
+    (refreshRequested)="onRefreshRequested()"
+  ></app-header>
 
   <!-- Main Layout -->
   <div class="dashboard__layout">
@@ -9,7 +13,7 @@
       <!-- KPI Strip -->
       <section class="dashboard__kpi-strip" data-testid="kpi-strip">
         <app-kpi-card 
-          *ngFor="let kpi of kpiData" 
+          *ngFor="let kpi of kpiData; trackBy: trackByKpi" 
           [kpi]="kpi"
         ></app-kpi-card>
       </section>
@@ -34,32 +38,18 @@
 
       <!-- Data Grids -->
       <section class="dashboard__grids" data-testid="data-grids-section">
-        <div class="grid-wrapper grid-wrapper--half">
+        <div class="grid-wrapper grid-wrapper--full">
           <app-data-grid
             title="Pending Orders"
             type="pending-orders"
             [pendingOrders]="pendingOrders"
           ></app-data-grid>
         </div>
-        <div class="grid-wrapper grid-wrapper--half">
+        <div class="grid-wrapper grid-wrapper--full">
           <app-data-grid
             title="FG Stock Ageing"
             type="stock-ageing"
             [stockAgeing]="stockAgeing"
-          ></app-data-grid>
-        </div>
-        <div class="grid-wrapper grid-wrapper--half">
-          <app-data-grid
-            title="Non-Moving Items"
-            type="non-moving"
-            [nonMovingItems]="nonMovingItems"
-          ></app-data-grid>
-        </div>
-        <div class="grid-wrapper grid-wrapper--half">
-          <app-data-grid
-            title="Fast-Moving Items"
-            type="fast-moving"
-            [fastMovingItems]="fastMovingItems"
           ></app-data-grid>
         </div>
       </section>
@@ -67,7 +57,12 @@
 
     <!-- AI Sidebar -->
     <aside class="dashboard__sidebar">
-      <app-ai-panel [insights]="aiInsights"></app-ai-panel>
+      <app-ai-panel 
+        [insights]="aiInsights"
+        [nonMovingItems]="nonMovingItems"
+        [fastMovingItems]="fastMovingItems"
+        [isConnected]="isConnected"
+      ></app-ai-panel>
     </aside>
   </div>
 </div>
