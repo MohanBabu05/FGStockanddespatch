@@ -1,14 +1,24 @@
-<div class="kpi-card" [ngClass]="getStatusClass()" [attr.data-testid]="'kpi-card-' + kpi.id">
+<div 
+  class="kpi-card" 
+  [ngClass]="[getStatusClass(), hasRecentUpdate ? 'kpi-card--updated' : '']" 
+  [attr.data-testid]="'kpi-card-' + kpi.id"
+>
   <div class="kpi-card__header">
     <span class="kpi-card__label">{{ kpi.label }}</span>
-    <span class="kpi-card__status-dot" [ngClass]="getStatusClass()"></span>
+    <div class="kpi-card__indicators">
+      <span class="kpi-card__live-dot" *ngIf="hasRecentUpdate" title="Just updated"></span>
+      <span class="kpi-card__status-dot" [ngClass]="getStatusClass()"></span>
+    </div>
   </div>
   
   <div class="kpi-card__body">
     <div class="kpi-card__value-wrapper">
-      <span class="kpi-card__value">{{ kpi.value }}</span>
+      <span class="kpi-card__value" [ngClass]="{'value-updated': hasRecentUpdate}">{{ kpi.value }}</span>
       <span class="kpi-card__unit">{{ kpi.unit }}</span>
     </div>
+    <span class="kpi-card__previous" *ngIf="hasRecentUpdate && previousValue">
+      was {{ previousValue }}
+    </span>
   </div>
 
   <div class="kpi-card__footer" *ngIf="kpi.trend !== undefined">
@@ -18,4 +28,7 @@
     </div>
     <span class="kpi-card__period">vs last period</span>
   </div>
+
+  <!-- Update indicator overlay -->
+  <div class="kpi-card__update-glow" *ngIf="hasRecentUpdate"></div>
 </div>

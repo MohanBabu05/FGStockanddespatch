@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, TrendingUp, TrendingDown, Minus } from 'lucide-angular';
 import { KpiData } from '../../services/dashboard-data.service';
@@ -10,12 +10,33 @@ import { KpiData } from '../../services/dashboard-data.service';
   templateUrl: './kpi-card.component.html',
   styleUrl: './kpi-card.component.scss'
 })
-export class KpiCardComponent {
+export class KpiCardComponent implements OnChanges {
   @Input() kpi!: KpiData;
+  @Input() isUpdating: boolean = false;
+
+  hasRecentUpdate: boolean = false;
+  previousValue: string = '';
 
   readonly TrendingUpIcon = TrendingUp;
   readonly TrendingDownIcon = TrendingDown;
   readonly MinusIcon = Minus;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['kpi'] && !changes['kpi'].firstChange) {
+      const prev = changes['kpi'].previousValue;
+      const curr = changes['kpi'].currentValue;
+      
+      if (prev && curr && prev.value !== curr.value) {
+        this.previousValue = prev.value;
+        this.hasRecentUpdate = true;
+        
+        // Remove highlight after animation
+        setTimeout(() => {
+          this.hasRecentUpdate = false;
+        }, 2000);
+      }
+    }
+  }
 
   getTrendIcon() {
     switch (this.kpi.trendDirection) {
