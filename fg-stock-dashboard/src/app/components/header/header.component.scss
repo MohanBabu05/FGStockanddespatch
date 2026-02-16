@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  height: 72px;
+  height: 64px;
   background: var(--bg-card);
   border-bottom: 1px solid #E2E8F0;
   box-shadow: var(--shadow-card);
@@ -11,10 +11,9 @@
   top: 0;
   z-index: 100;
 
-  &__left {
+  &__brand {
     display: flex;
     align-items: center;
-    gap: 24px;
   }
 
   &__logo {
@@ -45,129 +44,85 @@
       }
 
       .logo-product {
-        font-size: 11px;
-        color: var(--text-secondary);
+        font-size: 10px;
+        color: var(--text-tertiary);
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
+        font-weight: 600;
       }
     }
   }
 
   &__title {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    padding-left: 24px;
-    border-left: 1px solid #E2E8F0;
+    align-items: center;
+    gap: 4px;
 
     h1 {
       font-size: 18px;
       font-weight: 600;
       color: var(--text-primary);
       margin: 0;
+      letter-spacing: -0.3px;
     }
   }
 
-  &__timestamp {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    margin-top: 2px;
-  }
-
-  &__right {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  &__filters {
+  &__meta {
     display: flex;
     align-items: center;
     gap: 16px;
 
-    .filter-group {
+    .connection-status {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
-
-      label {
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-tertiary);
-        font-weight: 600;
-      }
-
-      .date-input-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        background: var(--bg-panel);
-        border: 1px solid #E2E8F0;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-
-        &:hover {
-          border-color: var(--primary-deep-blue-accent);
-        }
-
-        &:focus-within {
-          border-color: var(--primary-deep-blue);
-          box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
-        }
-
-        lucide-icon {
-          color: var(--text-tertiary);
-        }
-
-        input {
-          border: none;
-          background: transparent;
-          font-family: var(--font-mono);
-          font-size: 13px;
-          color: var(--text-primary);
-          outline: none;
-          width: 120px;
-
-          &::-webkit-calendar-picker-indicator {
-            opacity: 0;
-            cursor: pointer;
-          }
-        }
-      }
-    }
-
-    .btn {
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 14px;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
       font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: none;
+      color: var(--text-tertiary);
+      padding: 4px 10px;
+      background: var(--bg-panel);
+      border-radius: 20px;
 
-      &--primary {
-        background: var(--primary-deep-blue);
-        color: white;
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text-tertiary);
+      }
 
-        &:hover {
-          background: var(--primary-deep-blue-light);
-          transform: translateY(-1px);
+      &.connected {
+        color: var(--indicator-healthy);
+        background: rgba(16, 185, 129, 0.1);
+
+        .status-dot {
+          background: var(--indicator-healthy);
+          animation: pulse 2s infinite;
         }
+      }
 
-        &:active {
-          transform: translateY(0);
+      &.connecting {
+        color: var(--indicator-warning);
+        background: rgba(245, 158, 11, 0.1);
+
+        .status-dot {
+          background: var(--indicator-warning);
+          animation: blink 1s infinite;
         }
       }
     }
+  }
+
+  &__timestamp {
+    font-size: 11px;
+    color: var(--text-tertiary);
   }
 
   &__actions {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding-left: 16px;
-    border-left: 1px solid #E2E8F0;
 
     .action-btn {
       position: relative;
@@ -208,36 +163,203 @@
   }
 }
 
+// Filter Toolbar
+.filter-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 24px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid #E2E8F0;
+  position: sticky;
+  top: 64px;
+  z-index: 99;
+
+  &__left {
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        min-width: 35px;
+      }
+
+      .date-picker-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: var(--bg-card);
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: var(--primary-deep-blue-accent);
+        }
+
+        &:focus-within {
+          border-color: var(--primary-deep-blue);
+          box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+        }
+
+        lucide-icon {
+          color: var(--text-tertiary);
+          flex-shrink: 0;
+        }
+
+        input[type="date"] {
+          border: none;
+          background: transparent;
+          font-family: var(--font-mono);
+          font-size: 13px;
+          color: var(--text-primary);
+          outline: none;
+          width: 130px;
+          cursor: pointer;
+
+          &::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+    .filter-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 8px;
+    }
+  }
+
+  .validation-message {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--indicator-critical);
+    font-weight: 500;
+    padding: 6px 12px;
+    background: rgba(239, 68, 68, 0.08);
+    border-radius: 6px;
+    animation: fadeIn 0.2s ease;
+  }
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+
+  &--primary {
+    background: var(--primary-deep-blue);
+    color: white;
+    border-color: var(--primary-deep-blue);
+
+    &:hover:not(:disabled) {
+      background: var(--primary-deep-blue-light);
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &--secondary {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-color: #E2E8F0;
+
+    &:hover {
+      background: var(--bg-panel);
+      color: var(--text-primary);
+    }
+  }
+}
+
+// Animations
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Responsive
 @media (max-width: 1200px) {
   .header {
+    padding: 0 16px;
+
     &__title h1 {
       font-size: 16px;
     }
+  }
 
-    &__filters .filter-group .date-input-wrapper input {
-      width: 100px;
+  .filter-toolbar {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+
+    &__filters {
+      flex-wrap: wrap;
     }
   }
 }
 
 @media (max-width: 1024px) {
   .header {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 16px 20px;
-    gap: 16px;
-
-    &__left {
-      flex: 1;
-    }
-
-    &__right {
-      flex: 1;
-      justify-content: flex-end;
-    }
-
     &__title {
       display: none;
+    }
+  }
+
+  .filter-toolbar {
+    &__left {
+      width: 100%;
+      margin-bottom: 8px;
     }
   }
 }
